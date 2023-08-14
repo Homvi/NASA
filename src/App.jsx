@@ -5,42 +5,50 @@ import Modal from "./components/Modal";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Intro from "./components/Intro";
-import { incrDate, decrementDate } from "./functions";
+import { incrDate, decrDate } from "./functions";
 
 function App() {
-  var date = new Date();
-  const formattedDate =
-    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
   const showNext = () => {
-    if (formattedDate !== actualDate) {
+    let formattedDate = getFormattedDate();
+    if (actualDate !== formattedDate) {
       let newDate = incrDate(actualDate);
       setActualDate(newDate);
     } else {
       alert(
-        "We don't have YET the picture of tomorow, try to go the other direction"
+        "We don't have YET the picture of tomorrow, try to go the other direction"
       );
     }
   };
 
   const showPrev = () => {
-    let newDate = decrementDate(actualDate);
+    let newDate = decrDate(actualDate);
     setActualDate(newDate);
   };
 
   const [data, setData] = useState([]);
-  const [actualDate, setActualDate] = useState(formattedDate);
+  const [actualDate, setActualDate] = useState(getFormattedDate());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isIntroOpen, setIsIntroOpen] = useState(true);
+
+  function getFormattedDate() {
+    const date = new Date();
+    return (
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    );
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       const apiKey = import.meta.env.VITE_API_KEY;
-
-      const result = await axios.get(
-        `https://api.nasa.gov/planetary/apod?date=${actualDate}&api_key=${apiKey}`
-      );
-      setData(result.data);
+      try {
+        const result = await axios.get(
+          `https://api.nasa.gov/planetary/apod?date=${actualDate}&api_key=${apiKey}`
+        );
+        setData(result.data);
+      } catch (error) {
+        console.log(error);
+        alert("Server error! Could'nt fetch the data");
+      }
     };
 
     fetchData();

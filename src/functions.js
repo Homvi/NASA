@@ -19,7 +19,7 @@ export function incrDate(date_str) {
 }
 
 
-export function decrementDate(date_str) {
+export function decrDate(date_str) {
     var parts = date_str.split("-");
     var dt = new Date(
       parseInt(parts[0], 10), // year
