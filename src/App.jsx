@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Modal from "./components/Modal";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Intro from "./components/Intro";
 
 function App() {
   var date = new Date();
@@ -68,6 +69,7 @@ function App() {
   const [data, setData] = useState([]);
   const [actualDate, setActualDate] = useState(formattedDate);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isIntroOpen, setIsIntroOpen] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +86,10 @@ function App() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleCloseIntro = () => {
+    setIsIntroOpen(false);
   };
 
   return (
@@ -136,6 +142,7 @@ function App() {
           closeModal={handleCloseModal}
         />
       )}
+      {isIntroOpen && <Intro background={data.hdurl} close={handleCloseIntro}/>}
       <Footer />
     </div>
   );
