@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Intro from "./components/Intro";
 import { incrDate, decrDate } from "./functions";
+import NavigationButton from "./components/NavigationButton";
 
 function App() {
   const showNext = () => {
@@ -63,7 +64,7 @@ function App() {
   };
 
   return (
-    <div className="">
+    <>
       <Navbar />
       <div className="p-3 lg:py-11 min-h-screen bg-base-200 flex flex-col items-center lg:justify-center">
         <div className="flex flex-col justify-center items-center">
@@ -73,27 +74,13 @@ function App() {
           <p className=" text-center lg:hidden py-3 max-w-xl">{data.date}</p>
           <div className="flex flex-col lg:flex-row">
             <div className="relative w-screen flex justify-center bg-white lg:max-w-lg xl:max-w-xl ">
-              <div
-                onClick={showPrev}
-                className="h-full bg-black/70  flex justify-center items-center text-white absolute left-0 top-0 w-11 cursor-pointer  rotate-180"
-              >
-                <span className="text-3xl pb-4 lg:pb-1 text-shadow select-none">
-                  &gt;
-                </span>
-              </div>
+              <NavigationButton onClick={showPrev} direction="left" />
               <img
                 onClick={() => setIsModalOpen(true)}
                 src={data.url}
                 className="cursor-pointer lg:max-w-lg xl:max-w-xl max-h-sm shadow-2xl"
               />
-              <div
-                onClick={showNext}
-                className="h-full bg-black/70 flex justify-center items-center text-white absolute right-0 top-0 w-11 cursor-pointer "
-              >
-                <span className="text-3xl text-center leading-[0px]  text-shadow bg-white select-none">
-                  &gt;
-                </span>
-              </div>
+              <NavigationButton onClick={showNext} direction="right" />
             </div>
             <div className="flex flex-col px-3  items-center lg:items-start">
               <h1 className="text-5xl py-5 hidden lg:block font-bold">
@@ -118,7 +105,7 @@ function App() {
         <Intro background={data.hdurl} close={handleCloseIntro} />
       )}
       <Footer />
-    </div>
+    </>
   );
 }
 
