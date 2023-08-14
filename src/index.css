@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 .text-shadow {
-  text-shadow: 0px 0px 3px rgb(27, 31, 255), 0px 0px 8px rgb(37, 157, 255), 0px 0px 15px rgb(73, 173, 255),
+  /*  text-shadow: 0px 0px 3px rgb(27, 31, 255), 0px 0px 8px rgb(37, 157, 255), 0px 0px 15px rgb(73, 173, 255),
+    0px 0px 30px rgb(73, 173, 255), 0px 0px 20px rgb(42, 156, 250); */
+  text-shadow: 0px 0px 3px rgb(255, 202, 27), 0px 0px 8px rgb(255, 186, 37), 0px 0px 15px rgb(255, 206, 73),
     0px 0px 30px rgb(73, 173, 255), 0px 0px 20px rgb(42, 156, 250);
 }
-
