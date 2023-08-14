@@ -5,59 +5,21 @@ import Modal from "./components/Modal";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Intro from "./components/Intro";
+import { incrDate, decrementDate } from "./functions";
 
 function App() {
   var date = new Date();
-
   const formattedDate =
     date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
-  function incrDate(date_str) {
-    var parts = date_str.split("-");
-    var dt = new Date(
-      parseInt(parts[0], 10), // year
-      parseInt(parts[1], 10) - 1, // month (starts with 0)
-      parseInt(parts[2], 10) // date
-    );
-    dt.setDate(dt.getDate() + 1);
-    parts[0] = "" + dt.getFullYear();
-    parts[1] = "" + (dt.getMonth() + 1);
-    if (parts[1].length < 2) {
-      parts[1] = "" + parts[1];
-    }
-    parts[2] = "" + dt.getDate();
-    if (parts[2].length < 2) {
-      parts[2] = "0" + parts[2];
-    }
-    return parts.join("-");
-  }
-
-  function decrementDate(date_str) {
-    var parts = date_str.split("-");
-    var dt = new Date(
-      parseInt(parts[0], 10), // year
-      parseInt(parts[1], 10) - 1, // month (starts with 0)
-      parseInt(parts[2], 10) // date
-    );
-    dt.setDate(dt.getDate() - 1);
-    parts[0] = "" + dt.getFullYear();
-    parts[1] = "" + (dt.getMonth() + 1);
-    if (parts[1].length < 2) {
-      parts[1] = "0" + parts[1];
-    }
-    parts[2] = "" + dt.getDate();
-    if (parts[2].length < 2) {
-      parts[2] = "0" + parts[2];
-    }
-    return parts.join("-");
-  }
 
   const showNext = () => {
     if (formattedDate !== actualDate) {
       let newDate = incrDate(actualDate);
       setActualDate(newDate);
     } else {
-      alert("We don't have yet the picture of tomorow 😁😅");
+      alert(
+        "We don't have YET the picture of tomorow, try to go the other direction"
+      );
     }
   };
 
@@ -73,7 +35,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiKey = "0CTcMeo3FK7vONBi9NLIflpcxRcbGqdk2iBWfHj3";
+      const apiKey = import.meta.env.VITE_API_KEY;
 
       const result = await axios.get(
         `https://api.nasa.gov/planetary/apod?date=${actualDate}&api_key=${apiKey}`
@@ -102,12 +64,14 @@ function App() {
           </h1>
           <p className=" text-center lg:hidden py-3 max-w-xl">{data.date}</p>
           <div className="flex flex-col lg:flex-row">
-            <div className="relative w-screen flex justify-center bg-white lg:max-w-lg xl:max-w-xl">
+            <div className="relative w-screen flex justify-center bg-white lg:max-w-lg xl:max-w-xl ">
               <div
                 onClick={showPrev}
                 className="h-full bg-black/70  flex justify-center items-center text-white absolute left-0 top-0 w-11 cursor-pointer  rotate-180"
               >
-                <span className="text-3xl pb-4 lg:pb-1 text-shadow">&gt;</span>
+                <span className="text-3xl pb-4 lg:pb-1 text-shadow select-none">
+                  &gt;
+                </span>
               </div>
               <img
                 onClick={() => setIsModalOpen(true)}
@@ -118,7 +82,7 @@ function App() {
                 onClick={showNext}
                 className="h-full bg-black/70 flex justify-center items-center text-white absolute right-0 top-0 w-11 cursor-pointer "
               >
-                <span className="text-3xl text-center leading-[0px]  text-shadow bg-white">
+                <span className="text-3xl text-center leading-[0px]  text-shadow bg-white select-none">
                   &gt;
                 </span>
               </div>
@@ -142,7 +106,9 @@ function App() {
           closeModal={handleCloseModal}
         />
       )}
-      {isIntroOpen && <Intro background={data.hdurl} close={handleCloseIntro}/>}
+      {isIntroOpen && (
+        <Intro background={data.hdurl} close={handleCloseIntro} />
+      )}
       <Footer />
     </div>
   );
