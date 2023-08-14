@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import Modal from "./components/Modal";
+import Footer from "./components/Footer";
 
 function App() {
   var date = new Date();
@@ -74,7 +75,6 @@ function App() {
       const result = await axios.get(
         `https://api.nasa.gov/planetary/apod?date=${actualDate}&api_key=${apiKey}`
       );
-      console.log(result.data);
       setData(result.data);
     };
 
@@ -99,9 +99,7 @@ function App() {
                 onClick={showPrev}
                 className="h-full bg-black/70  flex justify-center items-center text-white absolute left-0 top-0 w-11 cursor-pointer  rotate-180"
               >
-                <span className="text-3xl pb-4 md:pb-1 text-shadow">
-                  &gt;
-                </span>
+                <span className="text-3xl pb-4 md:pb-1 text-shadow">&gt;</span>
               </div>
               <img
                 onClick={() => setIsModalOpen(true)}
@@ -136,6 +134,7 @@ function App() {
           closeModal={handleCloseModal}
         />
       )}
+      <Footer />
     </div>
   );
 }
