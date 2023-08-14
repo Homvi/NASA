@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Modal from "./components/Modal";
 import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 function App() {
   var date = new Date();
@@ -55,7 +56,7 @@ function App() {
       let newDate = incrDate(actualDate);
       setActualDate(newDate);
     } else {
-      alert("We dont have the picture of tomorow 😁😅");
+      alert("We don't have yet the picture of tomorow 😁😅");
     }
   };
 
@@ -87,7 +88,8 @@ function App() {
 
   return (
     <div className="">
-      <div className="p-3 min-h-screen bg-base-200 flex flex-col items-center md:justify-center">
+      <Navbar />
+      <div className="p-3 md:py-11 min-h-screen bg-base-200 flex flex-col items-center md:justify-center">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-xl md:text-5xl py-5 px-3 md:hidden font-bold text-center">
             {data.title}
@@ -122,7 +124,7 @@ function App() {
               <p className=" hidden md:block py-1 text-left max-w-xl">
                 {data.date}
               </p>
-              <p className="py-3  max-w-xl">{data.explanation}</p>
+              <p className="py-8 md:py-3 max-w-xl">{data.explanation}</p>
             </div>
           </div>
         </div>

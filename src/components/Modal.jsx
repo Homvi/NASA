@@ -4,7 +4,7 @@ const Modal = ({ src, title, closeModal }) => {
       <div className="pt-5  flex justify-center items-center">
         <div
           onClick={closeModal}
-          className="fixed right-5 top-8 bg-white/50 text-black pt-3 pb-4 px-5 rounded-lg text-2xl cursor-pointer"
+          className="fixed right-5 top-8 bg-white/50 text-black pt-2 pb-3 px-5 rounded-lg text-2xl cursor-pointer"
         >
           x
         </div>
