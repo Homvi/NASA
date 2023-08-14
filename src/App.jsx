@@ -6,17 +6,19 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Intro from "./components/Intro";
 import { incrDate, decrDate } from "./functions";
-import NavigationButton from "./components/NavigationButton";
 
 function App() {
+  var date = new Date();
+  const formattedDate =
+    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
   const showNext = () => {
-    let formattedDate = getFormattedDate();
-    if (actualDate !== formattedDate) {
+    if (formattedDate !== actualDate) {
       let newDate = incrDate(actualDate);
       setActualDate(newDate);
     } else {
       alert(
-        "We don't have YET the picture of tomorrow, try to go the other direction"
+        "We don't have YET the picture of tomorow, try to go the other direction"
       );
     }
   };
@@ -27,29 +29,18 @@ function App() {
   };
 
   const [data, setData] = useState([]);
-  const [actualDate, setActualDate] = useState(getFormattedDate());
+  const [actualDate, setActualDate] = useState(formattedDate);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isIntroOpen, setIsIntroOpen] = useState(true);
-
-  function getFormattedDate() {
-    const date = new Date();
-    return (
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-    );
-  }
 
   useEffect(() => {
     const fetchData = async () => {
       const apiKey = import.meta.env.VITE_API_KEY;
-      try {
-        const result = await axios.get(
-          `https://api.nasa.gov/planetary/apod?date=${actualDate}&api_key=${apiKey}`
-        );
-        setData(result.data);
-      } catch (error) {
-        console.log(error);
-        alert("Server error! Could'nt fetch the data");
-      }
+
+      const result = await axios.get(
+        `https://api.nasa.gov/planetary/apod?date=${actualDate}&api_key=${apiKey}`
+      );
+      setData(result.data);
     };
 
     fetchData();
@@ -74,13 +65,27 @@ function App() {
           <p className=" text-center lg:hidden py-3 max-w-xl">{data.date}</p>
           <div className="flex flex-col lg:flex-row">
             <div className="relative w-screen flex justify-center bg-white lg:max-w-lg xl:max-w-xl ">
-              <NavigationButton onClick={showPrev} direction="left" />
+              <div
+                onClick={showPrev}
+                className="h-full bg-black/70  flex justify-center items-center text-white absolute left-0 top-0 w-11 cursor-pointer  rotate-180"
+              >
+                <span className="text-3xl pb-4 lg:pb-1 text-shadow select-none">
+                  &gt;
+                </span>
+              </div>
               <img
                 onClick={() => setIsModalOpen(true)}
                 src={data.url}
                 className="cursor-pointer lg:max-w-lg xl:max-w-xl max-h-sm shadow-2xl"
               />
-              <NavigationButton onClick={showNext} direction="right" />
+              <div
+                onClick={showNext}
+                className="h-full bg-black/70 flex justify-center items-center text-white absolute right-0 top-0 w-11 cursor-pointer "
+              >
+                <span className="text-3xl text-center leading-[0px]  text-shadow bg-white select-none">
+                  &gt;
+                </span>
+              </div>
             </div>
             <div className="flex flex-col px-3  items-center lg:items-start">
               <h1 className="text-5xl py-5 hidden lg:block font-bold">
