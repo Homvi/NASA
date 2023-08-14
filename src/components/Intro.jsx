@@ -3,10 +3,10 @@ const Intro = ({ close }) => {
   return (
     <div className="hero min-h-screen bg-base-200 fixed top-0 left-0">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <img src={nasaLogo} className="w-72 rounded-lg shadow-2xl" />
+        <img src={nasaLogo} className="w-72 rounded-lg " />
         <div>
           <h1 className=" text-2xl md:text-5xl font-bold">
-            NASA's Astronomy Picture of the Day
+            NASA&lsquo;s Astronomy Picture of the Day
           </h1>
           <p className="py-6">
             Discover the cosmos with a daily visual treat! Each day, NASA
