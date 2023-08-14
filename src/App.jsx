@@ -87,34 +87,44 @@ function App() {
 
   return (
     <div className="">
-      <div className="p-3 min-h-screen bg-base-200 flex flex-col items-center">
+      <div className="p-3 min-h-screen bg-base-200 flex flex-col items-center md:justify-center">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-xl md:text-5xl py-5 px-3 font-bold text-center">
+          <h1 className="text-xl md:text-5xl py-5 px-3 md:hidden font-bold text-center">
             {data.title}
           </h1>
-          <p className=" text-center py-3 max-w-xl">{data.date}</p>
-          <div className="flex flex-col md:flex">
+          <p className=" text-center md:hidden py-3 max-w-xl">{data.date}</p>
+          <div className="flex flex-col md:flex-row">
             <div className="relative w-screen flex justify-center bg-white md:max-w-lg xl:max-w-xl">
               <div
                 onClick={showPrev}
-                className="h-full bg-black/70 flex justify-center items-center text-white absolute left-0 top-0 w-11 cursor-pointer  rotate-180"
+                className="h-full bg-black/70  flex justify-center items-center text-white absolute left-0 top-0 w-11 cursor-pointer  rotate-180"
               >
-                <span className="text-xl text-center leading-[0px]">&gt;</span>
+                <span className="text-3xl pb-4 md:pb-1 text-shadow">
+                  &gt;
+                </span>
               </div>
               <img
                 onClick={() => setIsModalOpen(true)}
                 src={data.url}
-                className=" md:max-w-lg xl:max-w-xl max-h-sm shadow-2xl"
+                className="cursor-pointer md:max-w-lg xl:max-w-xl max-h-sm shadow-2xl"
               />
               <div
                 onClick={showNext}
                 className="h-full bg-black/70 flex justify-center items-center text-white absolute right-0 top-0 w-11 cursor-pointer "
               >
-                <span className="text-xl text-center leading-[0px]">&gt;</span>
+                <span className="text-3xl text-center leading-[0px]  text-shadow bg-white">
+                  &gt;
+                </span>
               </div>
             </div>
-            <div className="flex flex-col items-center">
-              <p className="py-3 px-3 max-w-xl">{data.explanation}</p>
+            <div className="flex flex-col px-3  items-center md:items-start">
+              <h1 className="text-5xl py-5 hidden md:block font-bold">
+                {data.title}
+              </h1>
+              <p className=" hidden md:block py-1 text-left max-w-xl">
+                {data.date}
+              </p>
+              <p className="py-3  max-w-xl">{data.explanation}</p>
             </div>
           </div>
         </div>
